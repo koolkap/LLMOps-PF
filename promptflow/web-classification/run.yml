@@ -3,7 +3,7 @@ flow: .
 data: data.jsonl
 
 # define cloud resource
-runtime: trial-server
+runtime: default
 
 connections:
   classify_with_llm:
