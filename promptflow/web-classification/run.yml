@@ -3,7 +3,7 @@ flow: .
 data: data.jsonl
 
 # define cloud resource
-runtime: test-app
+runtime: default
 
 connections:
   classify_with_llm:
