@@ -7,8 +7,8 @@ runtime: trial-server
 
 connections:
   classify_with_llm:
-    connection: myopenaiapp
+    connection: mypromptflow8062981294
     deployment_name: gpt-4o
   summarize_text_content:
-    connection: myopenaiapp
+    connection: mypromptflow8062981294
     deployment_name: gpt-4o
