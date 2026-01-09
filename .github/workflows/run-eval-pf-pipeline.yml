@@ -38,7 +38,13 @@ jobs:
         cat promptflow/llmops-helper/run_info.txt
     - name: Set run name
       run: |
-        echo "RUN_NAME=$(python promptflow/llmops-helper/parse_run_output.py run_info.txt)" >> "$GITHUB_ENV"
+        RUN=$(python promptflow/llmops-helper/parse_run_output.py promptflow/llmops-helper/run_info.txt 2>/dev/null)
+        if [ -z "$RUN" ]; then
+          echo "❌ Failed to parse RUN_NAME"
+          cat promptflow/llmops-helper/run_info.txt
+          exit 1
+        fi
+        echo "RUN_NAME=$RUN" >> $GITHUB_ENV
     - name: Show the current run name
       run: echo "Run name is:" ${{env.RUN_NAME}}
     - name: Show promptflow results
