@@ -1,6 +1,5 @@
 name: Test and Evaluate Prompts with Promptflow
 
-
 on:
   workflow_dispatch:
   push:
