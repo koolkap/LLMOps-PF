@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out repo
+    - name: Checkout Repository
       uses: actions/checkout@v3
 
-    - name: Azure login
+    - name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -31,10 +31,10 @@ jobs:
       with:
         python-version: "3.11.4"
 
-    - name: Install promptflow client
+    - name: Install Promptflow client
       run: pip install -r promptflow/web-classification/requirements.txt
 
-    - name: Run promptflow
+    - name: Run PF pipeline
       run: |
         pfazure run create \
           -f promptflow/web-classification/run.yml \
@@ -57,7 +57,7 @@ jobs:
         fi
         echo "RUN_NAME=$RUN" >> $GITHUB_ENV
 
-    - name: Show PF run details
+    - name: Show Run Details
       run: |
         pfazure run show-details \
           --name ${{ env.RUN_NAME }} \
@@ -65,7 +65,7 @@ jobs:
           -g ${{ env.GROUP }} \
           -w ${{ env.WORKSPACE }}
 
-    - name: Run evaluation
+    - name: Run Evaluation
       run: |
         pfazure run create \
           -f promptflow/web-classification/run_evaluation.yml \
@@ -89,7 +89,7 @@ jobs:
         fi
         echo "EVAL_RUN_NAME=$EVAL" >> $GITHUB_ENV
 
-    - name: Show evaluation details
+    - name: Show Evaluation Details
       run: |
         pfazure run show-details \
           --name ${{ env.EVAL_RUN_NAME }} \
@@ -97,7 +97,7 @@ jobs:
           -g ${{ env.GROUP }} \
           -w ${{ env.WORKSPACE }}
 
-    - name: Export evaluation metrics
+    - name: Export Evaluation Metrics
       run: |
         pfazure run show-metrics \
           --name ${{ env.EVAL_RUN_NAME }} \
@@ -106,8 +106,8 @@ jobs:
           -w ${{ env.WORKSPACE }} \
           > promptflow/llmops-helper/eval_result.json
 
-    - name: Upload eval metrics
-      uses: actions/upload-artifact@v3
+    - name: Upload Metrics Artifact
+      uses: actions/upload-artifact@v4
       with:
         name: eval-metrics
         path: promptflow/llmops-helper/eval_result.json
