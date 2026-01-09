@@ -12,3 +12,4 @@ connections:
   summarize_text_content:
     connection: mypromptflow8062981294
     deployment_name: gpt-4o
+
